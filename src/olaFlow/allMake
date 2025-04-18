@@ -1,0 +1,127 @@
+#!/bin/bash
+
+if [ $WM_PROJECT == "foam" ]; then
+    # FOAM-Extend - OF_FLAVOUR=1
+    export OF_VERSION=`echo $WM_PROJECT_VERSION | sed -e 's/\.x/-9/' -e 's/\./\'$'\n/g' -e 's/-/\'$'\n/g' | grep "[0-9]" | head -2 | tr -d '\n'`
+    export OF_FLAVOUR=1
+
+    if [ $OF_VERSION -ge 40 ]; then
+        export OF_SOLVER=olaFlowFE40
+    else
+        export OF_SOLVER=olaFlowFE30_32
+    fi
+else
+    if [[ $WM_PROJECT_VERSION == *"v"* ]] && [ $WM_PROJECT_VERSION != "dev" ]
+    then
+        # OpenFOAM + (.com) - OF_FLAVOUR=2
+        export OF_VERSION=`echo $WM_PROJECT_VERSION"-0" | sed -e 's/v//' -e 's/+//' -e 's/\.x/-9/' -e 's/\./\'$'\n/g' -e 's/-/\'$'\n/g' | grep "[0-9]" | head -3 | tr -d '\n' | head -c4`
+        export OF_FLAVOUR=2
+        
+        if [ $OF_VERSION -lt 400 ]; then
+            export OF_SOLVER=olaFlowOF300+
+        elif [ $OF_VERSION -lt 1610 ]; then
+            export OF_SOLVER=olaFlowOF1606+
+        elif [ $OF_VERSION -lt 1700 ]; then
+            export OF_SOLVER=olaFlowOF1612+
+        elif [ $OF_VERSION -lt 1800 ]; then
+            export OF_SOLVER=olaFlowOFv17xx
+        elif [ $OF_VERSION -lt 1900 ]; then
+            export OF_SOLVER=olaFlowOFv18xx
+        else
+            export OF_SOLVER=olaFlowOFv_com_latest
+        fi
+    else
+        # OpenFOAM (.org) - OF_FLAVOUR=3
+        OF_VERSION=`echo $WM_PROJECT_VERSION"-00" | sed -e 's/v//' -e 's/+//' -e 's/\.x/-9/' -e 's/\./\'$'\n/g' -e 's/-/\'$'\n/g' | grep "[0-9]" | head -1`
+        if [ $OF_VERSION -lt 10 ]; then
+            export OF_VERSION=`echo $WM_PROJECT_VERSION"-00" | sed -e 's/v//' -e 's/+//' -e 's/\.x/-9/' -e 's/\./\'$'\n/g' -e 's/-/\'$'\n/g' | grep "[0-9]" | head -3 | tr -d '\n' | head -c3`
+        else
+            export OF_VERSION=`echo $WM_PROJECT_VERSION"-00" | sed -e 's/v//' -e 's/+//' -e 's/\.x/-9/' -e 's/\./\'$'\n/g' -e 's/-/\'$'\n/g' | grep "[0-9]" | head -3 | tr -d '\n' | head -c4`
+        fi
+        
+        export OF_FLAVOUR=3
+        export LATEST_SOLVER=olaFlowOF_org_latest
+
+        if [ $OF_VERSION -lt 1 ]; then
+            # Dev version
+            export OF_SOLVER=$LATEST_SOLVER
+            export OF_VERSION=9999
+        elif [ $OF_VERSION -lt 170 ]; then
+            export OF_SOLVER=olaFlowOF16ext
+        elif [ $OF_VERSION -lt 180 ]; then
+            export OF_SOLVER=olaFlowOF171
+        elif [ $OF_VERSION -lt 220 ]; then
+            export OF_SOLVER=olaFlowOF211
+        elif [ $OF_VERSION -lt 230 ]; then
+            export OF_SOLVER=olaFlowOF222
+        elif [ $OF_VERSION -lt 240 ]; then
+            export OF_SOLVER=olaFlowOF230
+        elif [ $OF_VERSION -lt 250 ]; then
+            export OF_SOLVER=olaFlowOF240
+        elif [ $OF_VERSION -lt 400 ]; then
+            export OF_SOLVER=olaFlowOF300
+        elif [ $OF_VERSION -lt 500 ]; then
+            export OF_SOLVER=olaFlowOF400
+        elif [ $OF_VERSION -lt 600 ]; then
+            export OF_SOLVER=olaFlowOF500
+        elif [ $OF_VERSION -lt 700 ]; then
+            export OF_SOLVER=olaFlowOF600
+        elif [ $OF_VERSION -lt 800 ]; then
+            export OF_SOLVER=olaFlowOF700
+        elif [ $OF_VERSION -lt 900 ]; then
+            export OF_SOLVER=olaFlowOF800
+        else
+            export OF_SOLVER=$LATEST_SOLVER
+        fi
+    fi
+fi
+
+wclean all > /dev/null
+
+# Boundary conditions
+wmake libso genAbs/waveGeneration
+
+if (( $? )) ; then 
+    echo "\n\nOlaFlow project wave generation boundary conditions compilation failed"
+    exit; else
+    echo -e "\n\nOlaFlow project wave generation boundary conditions compiled successfully for $WM_PROJECT $WM_PROJECT_VERSION\n\n\n";  
+fi
+
+wmake libso genAbs/waveAbsorption
+
+if (( $? )) ; then 
+    echo "\n\nOlaFlow project wave absorption boundary conditions compilation failed"
+    exit; else
+    echo -e "\n\nOlaFlow project wave absorption boundary conditions compiled successfully for $WM_PROJECT $WM_PROJECT_VERSION\n\n\n";  
+fi
+
+# Solver
+cd solvers/$OF_SOLVER
+source allMake
+
+cd -
+
+# Applications
+cd applications/setOla
+
+wclean all > /dev/null
+
+wmake
+
+if (( $? )) ; then 
+    echo "setOla ultility compilation failed. This utility is not compatible with your current version, but it might be in the future."
+    exit; else
+    echo -e "\n\nsetOla ultility compiled successfully for $WM_PROJECT $WM_PROJECT_VERSION\n\n\n";
+fi
+
+wclean all > /dev/null
+
+cd -
+
+# Clean up
+cd -
+rm -f genAbs/common/waveFun.dep
+
+if [ $WM_PROJECT == "foam" ]; then
+    rm -fr genAbs/*/lnInclude
+fi
