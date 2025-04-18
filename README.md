@@ -1,7 +1,7 @@
 # FloatingTurbinesFoam
 ![Image loading](./doc/WA.png)
 
-[**FloatingTurbinesFoam**] is a library for simulating floating offshore wind turbine's (FOWT) motion under wind-wave-current in OpenFOAM.
+**FloatingTurbinesFoam** is a library for simulating floating offshore wind turbine's (FOWT) motion under wind-wave-current in OpenFOAM.
 
 ## Usage
 Cases have been tested for OpenFOAM v2012 only.
