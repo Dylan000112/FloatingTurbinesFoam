@@ -1,0 +1,56 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2006                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      setExprFieldsDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+#include "../../myVars" 
+
+expressions
+(
+    U
+    {
+        field       U;
+        dimensions  [0 1 -1 0 0 0 0];
+
+     // constants
+     // {
+     // }
+
+      variables
+      (
+        //Log wind
+        "U_ref = 51.6"
+        "z_ground = 0.0"
+        "z_0 = 0.01"
+        "z_ref = 150.0"
+
+      );
+
+        condition
+        #{
+            (pos().z() - z_ground > z_0)
+        #};
+
+        expression
+        #{
+            vector
+            (
+                U_ref * log((pos().z()-z_ground)/z_0)/log((z_ref-z_ground)/z_0), //Log profile
+                0.0,
+                0.0
+            )
+        #};
+    }
+);
+
+// ************************************************************************* //

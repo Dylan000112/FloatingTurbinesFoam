@@ -1,0 +1,4 @@
+#!/bin/bash
+
+export FILE="floater05171.stl"
+surfaceTransformPoints -translate "(-38.6 -55 -28)" $FILE floater05172.stl

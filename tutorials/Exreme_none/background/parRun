@@ -1,0 +1,43 @@
+#!/bin/bash
+
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+rm -r 0
+rm -r processor*
+rm log.mpirun
+rm log.renumberMesh
+rm log.setExprFields
+rm log.setFields
+rm log.topoSet
+rm log.decomposePar
+
+restore0Dir
+
+runApplication topoSet
+
+runApplication setFields
+
+cp system/setWindExprFieldsDict system/setExprFieldsDict
+
+#FOAM_SIGFPE=false runApplication setExprFields
+
+mv log.setExprFields log.setWindExprFields
+
+cp system/setCurrentExprFieldsDict system/setExprFieldsDict
+
+FOAM_SIGFPE=false runApplication setExprFields
+
+mv log.setExprFields log.setCurrentExprFields
+
+rm ./system/decomposeParDict
+cp ./system/decomposeParDict_solver ./system/decomposeParDict
+
+nProc=$(getNumberOfProcessors)
+
+runApplication decomposePar
+
+renumber_application="mpirun -np $nProc renumberMesh -overwrite -parallel"
+runApplication $renumber_application
+mv log.mpirun log.renumberMesh
+
+

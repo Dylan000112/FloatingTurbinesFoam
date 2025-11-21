@@ -1,0 +1,95 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  1.7.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      sampleDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+interpolationScheme cellPoint;
+
+setFormat       raw;
+
+surfaceFormat   raw;
+
+sets
+(
+
+    Gauge0
+    {
+        type         uniform;
+        axis         x;
+        start        ( -480   0   -10 );   
+        end          (  -100   0    -10 );
+        nPoints      500;
+    }
+    
+    Gauge1
+    {
+        type         uniform;
+        axis         x;
+        start        ( -480   0   -30 );   
+        end          (  -100   0    -30 );
+        nPoints      500;
+    }
+    
+    Gauge2
+    {
+        type         uniform;
+        axis         x;
+        start        ( -480   0   -50 );   
+        end          (  -100   0    -50 );
+        nPoints      500;
+    }
+    
+    Gauge3
+    {
+        type         uniform;
+        axis         x;
+        start        ( 100   0   -10 );   
+        end          ( 480   0    -10 );
+        nPoints      500;
+    }
+    
+    Gauge4
+    {
+        type         uniform;
+        axis         x;
+        start        ( 100   0   -30 );   
+        end          ( 480   0    -30 );
+        nPoints      500;
+    }
+    
+    Gauge5
+    {
+        type         uniform;
+        axis         x;
+        start        ( 100   0   -50 );   
+        end          ( 480   0    -50 );
+        nPoints      500;
+    }
+    
+    
+
+);
+
+
+surfaces        ();
+
+fields          (U);
+
+type sets;
+
+libs ("libsampling.so");
+
+writeControl    adjustableRunTime;
+writeInterval   0.5;

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+./preRun_background
+./parRun
+./solverRun

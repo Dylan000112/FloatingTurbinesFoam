@@ -1,0 +1,97 @@
+//  omega inlet
+
+type       inletOutlet;
+inletValue #codeStream
+{
+	codeInclude
+	#{
+		#include "fvCFD.H"
+	#};
+
+	codeOptions
+	#{
+		-I$(LIB_SRC)/finiteVolume/lnInclude \
+		-I$(LIB_SRC)/meshTools/lnInclude
+	#};
+
+	codeLibs
+	#{
+		-lmeshTools \
+		-lfiniteVolume
+	#};
+
+	code
+	#{
+		const IOdictionary& d = static_cast<const IOdictionary&>
+		(
+			dict.parent().parent()
+		);
+
+		const fvMesh& mesh = refCast<const fvMesh>(d.db());
+		const label id = mesh.boundary().findPatchID("inlet");
+		const fvPatch& patch = mesh.boundary()[id];
+
+		scalarField omega(patch.size(), scalar($omega_water));
+
+		forAll(omega, i)
+		{
+			const scalar z = patch.Cf()[i][2];
+			if (z>0) // Above water level
+			{	
+				omega[i] = $omega_air; 	
+			} 
+			else omega[i] = $omega_water;	 
+		};
+
+		omega.writeEntry("",os);
+
+	#};
+
+};
+value #codeStream
+{
+	codeInclude
+	#{
+		#include "fvCFD.H"
+	#};
+
+	codeOptions
+	#{
+		-I$(LIB_SRC)/finiteVolume/lnInclude \
+		-I$(LIB_SRC)/meshTools/lnInclude
+	#};
+
+	codeLibs
+	#{
+		-lmeshTools \
+		-lfiniteVolume
+	#};
+
+	code
+	#{
+		const IOdictionary& d = static_cast<const IOdictionary&>
+		(
+			dict.parent().parent()
+		);
+
+		const fvMesh& mesh = refCast<const fvMesh>(d.db());
+		const label id = mesh.boundary().findPatchID("inlet");
+		const fvPatch& patch = mesh.boundary()[id];
+
+		scalarField omega(patch.size(), scalar($omega_water));
+
+		forAll(omega, i)
+		{
+			const scalar z = patch.Cf()[i][2];
+			if (z>0) // Above water level
+			{	
+				omega[i] = $omega_air;
+			} 
+			else omega[i] = $omega_water;	 
+		};
+
+		omega.writeEntry("",os);
+
+	#};
+
+};

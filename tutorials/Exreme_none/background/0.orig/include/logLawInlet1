@@ -1,0 +1,63 @@
+// Logarithmic profile inlet condition
+
+type   codedFixedValue;//FixedValue;
+value  uniform (0 0 0);
+redirectType  logLawInlet;
+
+code
+#{
+    vectorField U(this->patch().Cf());
+    vectorField pos(this->patch().Cf()); 
+
+    const scalar U_ref = 51.6; //Hub height vel
+    const scalar z_ref = 150.0; //Hub height
+    const scalar z_0 = 0.01; // Surface roughness length	
+    const scalar z_ground = 32.0; //Ground height
+    scalar U_h = 0.0; //Height-varying velocity
+
+    forAll(U, i)
+    {
+        const scalar z = pos[i][2];
+        
+        if (z-z_ground > z_0) // Above ground height
+        {	
+				
+            std::random_device rd;
+            std::mt19937 gen(rd());
+            std::uniform_real_distribution<> dis(0.98,1.02);
+            double randomNumber = dis(gen);
+				
+            Info << "randomNumber=" << randomNumber << endl;
+				
+            U_h = U_ref * log((z-z_ground)/z_0)/log((z_ref-z_ground)/z_0) * randomNumber; //Log profile
+				
+            U[i] = vector(U_h, 0., 0.);	
+				
+        } 
+        else U[i] = vector(0., 0., 0.);	
+    };
+		
+    operator==(U);
+
+#};
+
+
+codeInclude
+#{
+	//#include "fvCFD.H"
+	#include <random>
+#};
+/*
+	codeOptions
+	#{
+		-I$(LIB_SRC)/finiteVolume/lnInclude \
+		-I$(LIB_SRC)/meshTools/lnInclude
+	#};
+
+	codeLibs
+	#{
+		-lmeshTools \
+		-lfiniteVolume
+	#};
+*/
+

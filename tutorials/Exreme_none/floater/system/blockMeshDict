@@ -1,0 +1,82 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  3.0.x                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+#include "../../myVars" //Include global variables
+
+overset_xmin    -70;
+overset_xmax     90;
+overset_ymin    -80;
+overset_ymax     80;
+overset_zmin    -45;
+overset_zmax     35;
+
+scale   1;
+
+vertices        
+(
+    ( $overset_xmin  $overset_ymin  $overset_zmin ) //0
+    ( $overset_xmax  $overset_ymin  $overset_zmin ) //1
+    ( $overset_xmax  $overset_ymax  $overset_zmin ) //2
+    ( $overset_xmin  $overset_ymax  $overset_zmin ) //3
+    ( $overset_xmin  $overset_ymin  $overset_zmax ) //4
+    ( $overset_xmax  $overset_ymin  $overset_zmax ) //5
+    ( $overset_xmax  $overset_ymax  $overset_zmax ) //6
+    ( $overset_xmin  $overset_ymax  $overset_zmax ) //7
+);
+
+
+
+blocks
+(   
+    hex (0 1 2 3 4 5 6 7) (80  80  100 ) 
+    simpleGrading  (
+          1  
+          1
+        ( (0.125  0.08  1) (0.35  0.34  0.5) (0.175  0.24  1) (0.35  0.34  2))  
+    ) 
+);
+
+boundary
+(
+    sides
+    {
+        type   overset;
+        faces
+        (
+               (0  3  2  1)
+               (2  6  5  1)
+               (1  5  4  0)
+               (3  7  6  2)
+               (0  4  7  3)
+               (4  5  6  7)
+        );
+    }
+    floater
+    {
+        type   wall;
+        faces
+        (
+        );
+    }
+    
+);
+
+
+mergePatchPairs
+(
+);
+
+// ************************************************************************* //

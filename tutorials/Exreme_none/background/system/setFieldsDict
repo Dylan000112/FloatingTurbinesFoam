@@ -1,0 +1,121 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  5                                     |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      setFieldsDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+#include "../../myVars" 
+#include "$FOAM_CASE/0/include/boundaryConditions"
+
+defaultFieldValues
+(
+    volScalarFieldValue  alpha.water 0
+    volScalarFieldValue  zoneID      0
+    //volScalarFieldValue porosityIndex 0
+);
+
+regions
+(
+    
+    boxToCell
+    {
+        box (-10000 -10000 -10000) (10000 10000 0);
+        fieldValues (
+              volScalarFieldValue alpha.water 1
+                    );
+    }
+
+   boxToCell
+    {
+        box (-10000 -10000 $ZWL) (10000 10000 100000);
+        fieldValues (      
+             volScalarFieldValue k     $k_air  
+             volScalarFieldValue omega $omega_air
+             volScalarFieldValue epsilon    $epsilon_air
+             volScalarFieldValue nut   $nut_air
+                    );
+    }
+
+    boxToCell
+    {
+        box (-10000 -10000  -10000) (10000 10000 $ZWL);
+        fieldValues (      
+             volScalarFieldValue k      $k_water
+             volScalarFieldValue omega  $omega_water
+             volScalarFieldValue epsilon    $epsilon_water
+             volScalarFieldValue nut    $nut_water
+                     );
+    }
+    cellToCell
+    {
+        set c0;
+        fieldValues (
+              volScalarFieldValue  zoneID  0
+                    );
+    }
+    cellToCell
+    {
+        set c1;
+        fieldValues (
+              volScalarFieldValue  zoneID  1
+                    );
+    }
+    
+    
+    
+ /*   
+    boxToCell
+    {
+        box (-100000 -10000 16) (100000 10000 10000);
+        fieldValues
+        (
+            volVectorFieldValue U
+            {
+                    field       U;
+                    dimensions  [0 1 -1 0 0 0 0];
+
+                 // constants
+                 // {
+                 // }
+
+                  variables
+                  (
+                    "U_ref = 9.0"
+                    "z_ground = 16.0"
+                    "z_0 = 0.01" //0.5
+                    "z_ref = 90.0"
+                  );
+
+                    condition
+                    #{
+                        (pos().z() - z_ground > z_0)
+                    #};
+
+                    expression
+                    #{
+                        vector
+                        (
+                            0.0,//U_ref * log((pos().z()-z_ground)/z_0)/log((z_ref-z_ground)/z_0), //Log profile
+ 
+                            // Instead of running 'setExprField', do 'FOAM_SIGFPE=false setExprFields'
+                            0.0,
+                            0.0
+                        )
+                    #};
+              };
+            );
+        }*/
+);
+
+
+// ************************************************************************* //

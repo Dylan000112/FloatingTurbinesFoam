@@ -1,0 +1,32 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  3.0.x                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+//#include "../../../myVars" //Include global variable
+
+
+Ut_water     2.0;
+Lt_water     150;
+It_water     0.005;
+k_water      #calc "1.5*pow($It_water*$Ut_water,2)"; //
+omega_water  #calc "pow($k_water,0.5)/$Lt_water"; //
+epsilon_water  0.1;//#calc "pow($k_water,1.5)*0.09/$Lt_water";
+
+Ut_air        51.0;//8.0;
+Lt_air        5;//0.1;//150;
+It_air        0.018;//0.005;
+k_air         #calc "1.5*pow($It_air*$Ut_air,2)";  //
+omega_air     #calc "pow($k_air,0.5)/$Lt_air";  //0.001;//
+epsilon_air    0.1;// #calc "pow($k_air,1.5)*0.09/$Lt_air";
+
+ZWL   0;
+
+
+nut_water     0.0;//0.089;
+nut_air       0.0;//5.03;
+
+
+// ************************************************************************* //

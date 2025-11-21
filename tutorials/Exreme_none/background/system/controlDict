@@ -1,0 +1,72 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  1.5                                   |
+|   \\  /    A nd           | Web:      http://www.OpenFOAM.org               |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+#include "../../myVars" //Include global variables
+
+application     OverOlaDyMFlow;
+
+startFrom       latestTime;
+
+startTime       0;
+
+stopAt          endTime;
+
+endTime         $t_final;
+
+deltaT          $dt0;
+
+writeControl    adjustableRunTime;
+
+writeInterval   0.01;//$dt0;//0.5;
+
+purgeWrite      0;
+
+writeFormat     binary;
+
+writePrecision  8;
+
+writeCompression off;
+
+timeFormat      general;
+
+timePrecision   8;
+
+runTimeModifiable yes;
+
+adjustTimeStep  yes;
+
+maxAlphaCo      1.0;
+
+maxCo   1.0;
+
+
+libs
+(
+    "libfloatingTurbinesFoam.so"
+    "libsixDoFMooring.so"
+    overset
+   "libturbulenceMultiphaseOlaFlowModels.so"
+);
+
+functions
+{
+    #includeIfPresent "../waveGaugesNProbes/surfaceElevation_controlDict"; //Needed to get surfaceElevation during runtime
+    #includeIfPresent "sampling"; //Include sampling definition
+    #includeFunc  sampleDict
+    #includeFunc sampleDictU
+    
+}
+
+// ************************************************************************* //
