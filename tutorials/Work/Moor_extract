@@ -1,0 +1,20 @@
+#!/bin/bash
+
+gnuplot_script=$(cat << EOF
+
+set terminal pngcairo size 1200,800
+set output 'Moor_image.png'
+
+set title "Mooring force"
+set xlabel "Time (s)"
+set ylabel "Force (N)"
+plot "Lines.out" using 1:2 with points pt 1 ps 1 lc rgb "red" title 'Downstream-1', \
+     "Lines.out" using 1:4 with points pt 4 ps 1 lc rgb "blue" title 'Upstream-2', \
+     "Lines.out" using 1:5 with points pt 7 ps 1 lc rgb "green" title 'Upstream-3'
+
+
+EOF
+)
+
+echo "$gnuplot_script" | gnuplot
+

@@ -1,0 +1,19 @@
+#!/bin/bash
+
+
+grep -r -n "deltaT" log.mpirun > log.deltaT
+
+grep "deltaT =" "log.deltaT" | awk '{print $3}' > deltaT_values.txt
+
+# 绘制散点图
+gnuplot << EOF
+set terminal pngcairo enhanced font 'Verdana,12'
+set output 'deltaT_scatter.png'
+set title 'DeltaT Scatter Plot'
+set xlabel 'Index'
+set ylabel 'DeltaT Value'
+set style data points
+plot 'deltaT_values.txt' using 0:1 with points pointtype 7 pointsize 1.5 title 'DeltaT'
+EOF
+
+

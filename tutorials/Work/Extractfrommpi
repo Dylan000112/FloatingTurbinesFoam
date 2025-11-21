@@ -1,0 +1,7 @@
+#!/bin/bash
+
+awk "/Centre of rotation: / {print $NF}" log.mpirun > Extract_COR.txt
+awk "/Linear velocity: / {print $NF}" log.mpirun > Extract_Vel.txt
+awk "/Linear acceleration: / {print $NF}" log.mpirun > Extract_acc.txt
+awk "/: force / {print $NF}" log.mpirun > Extract_moorforce.txt
+awk "/f.forceEff/ {print $NF}" log.mpirun > Extract_buoyancy.txt

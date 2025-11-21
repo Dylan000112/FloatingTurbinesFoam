@@ -1,0 +1,111 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  1.5                                   |
+|   \\  /    A nd           | Web:      http://www.OpenFOAM.org               |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      motionProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+#include "../../myVars" //Include global variables
+
+dynamicFvMesh dynamicOversetFvMesh;//dynamicMotionSolverFvMesh;
+dynamicOversetFvMeshCoeffs{}
+
+motionSolverLibs 
+(
+  //"libfvMotionSolvers.so"
+  //"libnewSixDoFRigidBodyMotion.so"
+  "libfloatingSixDoFRigidBodyMotion.so"
+);
+solver sixDoFRigidBodyMotion;
+diffusivity     quadratic inverseDistance ( floater );
+ 
+sixDoFRigidBodyMotionCoeffs
+{
+  patches         ( floater );
+  innerDistance   10000;//5;//#calc "1.5*$BL_thick";
+  outerDistance   10001;//90;//$wave_length; //distance to the closest boundary (top)  //#calc "$zmax - ($plat_comz)";
+  centreOfMass    ($total_comx 0 $total_comz);
+  mass            $total_mass;
+  g               ( 0 0 -9.8065);
+  momentOfInertia ($plat_Ixx $plat_Iyy $plat_Izz);
+  velocity        ( 0    0   0 );
+  //angularMomentum (0    0   0); //units [kg-m^2*deg/s]
+  orientation     $plat_orientation;  //Rotation tensor (ZYX convention), see http://planning.cs.uiuc.edu/node102.html
+  
+  //rhoName         rhoInf; //For incompressible, in case density is uniform
+  //rhoInf          1024.81;
+
+  accelerationRelaxation 1.0;
+  accelerationDamping 1.0;
+  report          on;
+  reportToFile    on;
+  solver
+  {
+      type            Newmark;
+  }
+
+  constraints
+  {
+ /*
+          pitchOnly
+          {
+            sixDoFRigidBodyMotionConstraint   axis;
+            axis                              (0.0 1.0 0.0);
+          }
+
+          surgeOnly
+          {
+            sixDoFRigidBodyMotionConstraint   line;
+            direction                         (1.0 0.0 0.0);
+          }
+    
+        
+         fixedPoint
+         {
+             sixDoFRigidBodyMotionConstraint point;
+             centreOfRotation ($total_comx 0 $total_comz);
+         }
+                
+        fixedAxis
+        {
+            sixDoFRigidBodyMotionConstraint axis;
+            axis (0 1  0);
+        } */
+  }
+
+   restraints
+   {
+    /*
+      turbineWeight
+      {
+        sixDoFRigidBodyMotionRestraint constantLoad;
+        applicationPt   ($turb_comx $turb_comy $turb_comz); // Initial CoG
+        movePt          true; // Move CoG with rigid body
+        force           (0.0 0.0 #calc "-9.8065*$turb_mass"); // Weight (global frame)
+        torque          (0.0 0.0 0.0); // None  
+      }
+    */
+  
+      turbineLoad // Restraint name , must be unique
+      {
+            sixDoFRigidBodyMotionRestraint turbineAL; // Restraint type
+      }
+      	
+      moorDynR1
+	{
+	    sixDoFRigidBodyMotionRestraint moorDynR1;
+	}      
+      
+    }
+   
+}
+
+// ************************************************************************* //

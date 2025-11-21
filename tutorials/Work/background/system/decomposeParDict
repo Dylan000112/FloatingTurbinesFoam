@@ -1,0 +1,45 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2012                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      decomposeParDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+#include "../../myVars" //Include global variables
+
+numberOfSubdomains  $Subdomains_solver;
+
+method        scotch;
+
+
+/*
+constraints
+{
+    geometric
+    {
+         type    geometric;
+         grow    false;
+         selection
+         {
+             turbine
+             {
+                  source  cylinder; 
+                  //p1 (#calc "$hub_x-0.02*$D" 0 $hub_h);
+                  //p2 (#calc "$hub_x+0.05*$D" 0 $hub_h);
+                  p1 (30 0  140);
+                  p2 (80 0  140); //x=35
+                  radius   140; //#calc "1.02*$D/2"; 
+             }
+         }
+    }
+}
+*/
+// ************************************************************************* //

@@ -1,0 +1,64 @@
+#!/bin/bash
+
+logfile="log.olaDymFlow"
+output_file="Force_extract.txt"
+body_mass=1 #22631090
+
+time=""
+mooringForceX=""
+mooringForceY=""
+mooringForceZ=""
+linearAccX=""
+linearAccY=""
+linearAccZ=""
+
+echo "Time LinearAcc_X LinearAcc_Y LinearAcc_Z MooringForce_X MooringForce_Y MooringForce_Z Torque_X Torque_Y Torque_Z MooringMoment_X MooringMoment_Y MooringMoment_Z " > $output_file
+
+while read -r line; do
+    if [[ "$line" =~ ^Time\ =\ ([0-9]+\.[0-9]*|[0-9]+) ]]; then
+        time=${BASH_REMATCH[1]}
+        echo "Time extracted: $time"  
+    fi
+
+    if [[ "$line" =~ force\ \(([^ ]*)\ ([^ ]*)\ ([^ ]*)\) ]]; then
+        mooringForceX=${BASH_REMATCH[1]}
+        mooringForceY=${BASH_REMATCH[2]}
+        mooringForceZ=${BASH_REMATCH[3]}
+        #echo "Mooring force extracted: X:$mooringForceX Y:$mooringForceY Z:$mooringForceZ"
+    fi
+
+    if [[ "$line" =~ moment\ \(([^ ]*)\ ([^ ]*)\ ([^ ]*)\) ]]; then
+        mooringMomentX=${BASH_REMATCH[1]}
+        mooringMomentY=${BASH_REMATCH[2]}
+        mooringMomentZ=${BASH_REMATCH[3]}
+        #echo "Mooring moment extracted: X:$mooringMomentX Y:$mooringMomentY Z:$mooringMomentZ"
+    fi
+
+    if [[ "$line" =~ Linear\ acceleration:\ \(([^ ]*)\ ([^ ]*)\ ([^ ]*)\) ]]; then
+        linearAccX=${BASH_REMATCH[1]}
+        linearAccY=${BASH_REMATCH[2]}
+        linearAccZ=${BASH_REMATCH[3]}
+        #echo "LinearAcc extracted: X:$linearAccX Y:$linearAccY Z:$linearAccZ"
+    fi
+
+    if [[ "$line" =~ Torque:\ \(([^ ]*)\ ([^ ]*)\ ([^ ]*)\) ]]; then
+        TorqueX=${BASH_REMATCH[1]}
+        TorqueY=${BASH_REMATCH[2]}
+        TorqueZ=${BASH_REMATCH[3]}
+        #echo "Torque extracted: X:$TorqueX Y:$TorqueY Z:$TorqueZ"
+    fi
+
+    if [[ -n "$time" && -n "$mooringForceX" && -n "$linearAccX" && -n "$mooringMomentX" && -n "$TorqueX" ]]; then
+        
+        echo "$time $linearAccX $linearAccY $linearAccZ $mooringForceX $mooringForceY $mooringForceZ $TorqueX $TorqueY $TorqueZ $mooringMomentX $mooringMomentY $mooringMomentZ" >> $output_file
+
+        unset time
+        unset mooringForceX mooringForceY mooringForceZ
+        unset linearAccX linearAccY linearAccZ
+        unset mooringMomentX mooringMomentY mooringMomentZ
+        unset TorqueX TorqueY TorqueZ
+    fi
+done < "$logfile"
+
+echo "Data extraction completed. Results saved to $output_file."
+

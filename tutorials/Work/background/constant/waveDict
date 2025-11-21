@@ -1,0 +1,83 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  1.3                                   |
+|   \\  /    A nd           | Web:      http://www.openfoam.org               |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      waveDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+#include "../../myVars" //Include global variables
+
+waveType        regular;
+
+waveTheory      StokesIII;
+
+genAbs          1;
+
+absDir          0.0;//666;
+
+nPaddles        1;
+
+wavePeriod      $wave_period;
+
+waveHeight      $wave_height;
+
+waveDir         0;
+
+wavePhase       1.57079633;
+
+tSmooth         0;
+
+uCurrent        ($U_current 0 0);
+
+uWind		($U_ref 0 0);
+
+zWind_0		$z_wind_0;
+
+zCurrent_0	$z_current_0;
+
+hub_height	$hub_h;
+
+random_fluctuation  $random_fluc;
+
+
+
+
+
+
+
+
+
+
+// ************************************************************************* //
+
+/*
+waveType        current;
+
+genAbs          1;
+
+absDir          0.0;
+
+nPaddles        1;
+
+uCurrent        (2 0. 0.);
+*/
+
+
+// Parameters for setOla
+setWaterLevel   0; // Still water level (Z, in m)
+setWaterDepth   105; // Water depth to use in calculations (if irregular bottom)
+
+// Change both entries to true to re-read this dictionary upon restart.
+rereadAlpha     false;
+rereadU         false;
+

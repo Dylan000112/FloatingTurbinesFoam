@@ -1,0 +1,4 @@
+#!/bin/bash
+
+export FILE="floater0517.stl"
+surfaceTransformPoints -scale "(0.001 0.001 0.001)" $FILE floater05171.stl

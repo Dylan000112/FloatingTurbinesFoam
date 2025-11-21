@@ -1,0 +1,21 @@
+#!/bin/bash
+
+#SBATCH -J 40.4
+#SBATCH -p cnall
+#SBATCH -N 1
+#SBATCH -o stdout.%j
+#SBATCH -e stderr.%j
+#SBATCH --no-requeue
+#SBATCH --ntasks-per-node=30
+
+
+export PATH=/apps/compilers/gcc/v12.2.0/bin:$PATH;
+export LD_LIBRARY_PATH=/apps/compilers/gcc/v12.2.0/lib:$LD_LIBRARY_PATH;
+export PATH=/apps/mpi/openmpi-4.1.4.-gcc12/bin:$PATH;
+export LD_LIBRARY_PATH=/apps/mpi/openmpi-4.1.4.-gcc12/lib:$LD_LIBRARY_PATH;
+source /home/yuanj/WORK/OpenFOAM/OpenFOAM-v2012-dyy/etc/bashrc
+export PATH=/apps/compilers/gcc/v11.2.0/bin:$PATH
+export LD_LIBRARY_PATH=/apps/compilers/gcc/v11.2.0/lib64:$LD_LIBRARY_PATH
+
+./allRun
+

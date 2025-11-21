@@ -1,0 +1,96 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  1.5                                   |
+|   \\  /    A nd           | Web:      http://www.OpenFOAM.org               |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      fvSchemes;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+ddtSchemes
+{
+    default  Euler;
+}
+
+gradSchemes
+{
+//    default	cellLimited fourth 1;
+    default         Gauss linear;
+//    grad(U)         Gauss linear;
+//    grad(alpha1)     Gauss linear;
+//  default cellLimited Gauss linear 1.0;
+}
+
+divSchemes
+{
+//    default	    Gauss linear;
+    div(rhoPhi,U)   Gauss limitedLinearV 1;
+    div((rhoPhi|interpolate(porosity)),U)  Gauss vanLeerV;
+    div(phi,k)      bounded Gauss linearUpwind grad(k);
+    div(phi,omega)  bounded Gauss linearUpwind grad(omega);
+    div(phi,alpha)  Gauss MUSCL;
+    div(phirb,alpha) Gauss interfaceCompression;
+    div(phi,epsilon) Gauss upwind;
+    div(((rho*nuEff)*dev2(T(grad(U))))) Gauss linear limited 0.5;
+
+    div(rhoPhiPor,UPor)  Gauss limitedLinearV 1;
+    div(rhoPhi,UPor)  Gauss limitedLinearV 1;
+    div(rhoPhiPor,U)   Gauss limitedLinearV 1; 
+    div(U)  Gauss linear;
+    
+    div((phi|interpolate(porosity)),omega) Gauss upwind;
+    div((phi*interpolate(rho)),omega) Gauss upwind;
+    div((phi*interpolate(rho)),epsilon) Gauss upwind;
+    div((phi|interpolate(porosity)),k)      Gauss upwind;
+    div((phi*interpolate(rho)),k)      Gauss upwind;
+    div((phi|interpolate(porosity)),epsilon) Gauss upwind;
+    div((rhoPhi|interpolate(porosity)),U)  Gauss limitedLinearV 1;
+}
+
+laplacianSchemes
+{
+    default         Gauss linear corrected;
+}
+
+interpolationSchemes
+{
+    default         linear;
+}
+
+snGradSchemes
+{
+    default         corrected;
+}
+
+fluxRequired
+{
+    default         no;
+    p_rgh;
+    pcorr;
+    alpha.water;
+}
+
+oversetInterpolation
+{
+    method  inverseDistance;//cellVolumeWeight;//
+}
+/*
+oversetInterpolationSuppressed
+{
+    grad(p_rgh);
+    surfaceIntegrate(phiHbyA);
+}
+*/
+wallDist
+{
+    method meshWave;
+}
+
+// ************************************************************************* //

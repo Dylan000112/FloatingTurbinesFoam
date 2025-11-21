@@ -1,0 +1,155 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  1.7.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      sampleDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+interpolationScheme cellPoint;
+
+setFormat       raw;
+
+surfaceFormat   raw;
+
+sets
+(
+
+    Gauge0
+    {
+        type         midPointAndFace;
+        axis         z;
+        start        ( -80   0   -10 );   
+        end          ( -80   0    10 );
+        nPoints      300;
+    }
+    Gauge1
+    {
+        type         midPointAndFace;
+        axis         z;
+        start        ( -100   0   -10 );   
+        end          ( -100   0    10 );
+        nPoints      300;
+    }
+    Gauge2
+    {
+        type         midPointAndFace;
+        axis         z;
+        start        ( -120   0   -10 );   
+        end          ( -120   0    10 );
+        nPoints      300;
+    }
+    Gauge3
+    {
+        type         midPointAndFace;
+        axis         z;
+        start        ( 80   0   -10 );   
+        end          ( 80   0    10 );
+        nPoints      300;
+    }
+    Gauge4
+    {
+        type         midPointAndFace;
+        axis         z;
+        start        ( 100   0   -10 );   
+        end          ( 100   0    10 );
+        nPoints      300;
+    }
+    Gauge5
+    {
+        type         midPointAndFace;
+        axis         z;
+        start        ( 120   0   -10 );   
+        end          ( 120   0    10 );
+        nPoints      300;
+    }
+    Gauge6
+    {
+        type         midPointAndFace;
+        axis         z;
+        start        ( -80   80   -10 );   
+        end          ( -80   80    10 );
+        nPoints      300;
+    }
+    Gauge7
+    {
+        type         midPointAndFace;
+        axis         z;
+        start        ( -80   -80   -10 );   
+        end          ( -80   -80    10 );
+        nPoints      300;
+    }
+    Gauge8
+    {
+        type         midPointAndFace;
+        axis         z;
+        start        ( 0   80   -10 );   
+        end          ( 0   80    10 );
+        nPoints      300;
+    }
+    Gauge9
+    {
+        type         midPointAndFace;
+        axis         z;
+        start        ( 0   -80   -10 );   
+        end          ( 0   -80    10 );
+        nPoints      300;
+    }
+    Gauge10
+    {
+        type         midPointAndFace;
+        axis         z;
+        start        ( 80   80   -10 );   
+        end          ( 80   80    10 );
+        nPoints      300;
+    }
+    Gauge11
+    {
+        type         midPointAndFace;
+        axis         z;
+        start        ( 80   -80   -10 );   
+        end          ( 80   -80    10 );
+        nPoints      300;
+    }
+    Gauge12
+    {
+        type         midPointAndFace;
+        axis         z;
+        start        ( -130   0   -10 );   
+        end          ( -130   0    10 );
+        nPoints      300;
+    }
+    Gauge13
+    {
+        type         midPointAndFace;
+        axis         z;
+        start        ( -140   0   -10 );   
+        end          ( -140   0    10 );
+        nPoints      300;
+    }
+
+    
+    
+
+);
+
+
+surfaces        ();
+
+fields          ( alpha.water );
+
+type sets;
+
+libs ("libsampling.so");
+
+writeControl    adjustableRunTime;
+writeInterval   0.05;

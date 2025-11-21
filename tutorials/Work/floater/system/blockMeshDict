@@ -1,0 +1,92 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  3.0.x                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+#include "../../myVars" //Include global variables
+
+overset_xmin    -60;
+overset_xmax     80;
+overset_ymin    -70;
+overset_ymax     70;
+overset_zmin    -40;
+overset_zmax     25;
+
+scale   1;
+
+vertices        
+(
+    ( $overset_xmin  $overset_ymin  $overset_zmin ) //0
+    ( $overset_xmax  $overset_ymin  $overset_zmin ) //1
+    ( $overset_xmax  $overset_ymax  $overset_zmin ) //2
+    ( $overset_xmin  $overset_ymax  $overset_zmin ) //3
+    ( $overset_xmin  $overset_ymin  $overset_zmax ) //4
+    ( $overset_xmax  $overset_ymin  $overset_zmax ) //5
+    ( $overset_xmax  $overset_ymax  $overset_zmax ) //6
+    ( $overset_xmin  $overset_ymax  $overset_zmax ) //7
+);
+
+
+
+blocks
+(   
+    hex (0 1 2 3 4 5 6 7) (16  16  20 ) 
+    simpleGrading  (
+          1  
+          1
+          ( 
+          	 (0.230     0.15  1)  
+         	 (0.175     0.15  1) 
+         	 (0.100     0.10  1)
+         	 (0.080     0.10  1) 
+         	 (0.060     0.10  1) //WL (2m)
+         	 (0.080     0.10  1) 
+         	 (0.100     0.10  1) 
+         	 (0.175     0.15  1)
+  
+          )  
+    ) 
+);
+
+boundary
+(
+    sides
+    {
+        type   overset;
+        faces
+        (
+               (0  3  2  1)
+               (2  6  5  1)
+               (1  5  4  0)
+               (3  7  6  2)
+               (0  4  7  3)
+               (4  5  6  7)
+        );
+    }
+    floater
+    {
+        type   wall;
+        faces
+        (
+        );
+    }
+    
+);
+
+
+mergePatchPairs
+(
+);
+
+// ************************************************************************* //

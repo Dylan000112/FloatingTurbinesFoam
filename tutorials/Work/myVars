@@ -1,0 +1,76 @@
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+// This file is used to define global variables//
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+//TURBUNE GEOMETRY
+hub_h		        150; // Hub height
+hub_o	        	-11.35; // Turbine overhang
+tower_x                 46.188; // Tower
+hub_x                   #calc "$tower_x+$hub_o";// Blades' center
+D 		        240.0; // Rotor diameter
+R 		        #calc "$D/2"; //Rotor radii
+span		        117; // Blade length
+chord		        5.0; // Mean chord
+
+//Floater properties
+BL_thick		0.2; // BL thickness 
+float_width		74.0; // Overall floater width
+plat_mass		2.0605960E+7;//kg
+plat_Ixx		5.46E+10;//kg*m^2
+plat_Iyy		5.46E+10;//
+plat_Izz		3.27E+10;//
+plat_orientation	(1 0 0 0 1 0 0 0 1);
+
+// Platform + turbine properties
+total_mass	        22631.09E+3;//kg
+total_comx	        0;//m
+total_comz	        -9;//m
+
+//FLOW FIELD
+Ux			8;//51.6; // Freestream wind
+I 			0.02; //Turbulence intensity
+TSR			6.0;// Tip-speed ratio					
+//rot_period		#calc "2*M_PI*$R/($Ux*$TSR)"; // Blade rotation period 
+
+//WIND SHEAR - LOG PROFILE
+U_ref		        $Ux; //Hub height vel
+z_ref		        $hub_h; //Hub height
+z_wind_0	        10;//0.01;// Surface roughness length
+random_fluc		0.01;//	
+//z_ground	        35; //Wind boundary (m)
+
+//WATER AND WAVES
+water_depth 	        105.0;
+wave_period	        6;//14.58;
+wave_height	        2;// 11.71;
+wave_length             #calc "9.8*$wave_period*$wave_period/2/M_PI"; // d/L>0.5, depth water, L=gT^2/2/pi
+
+//Current
+U_current               1;//2.44;  //Surface
+z_current_0		0.01;   //Surface roughness length
+
+
+// SOLVER CONTROL
+//dtmax                   #calc "20.0/8.0/$Ux/$TSR";
+dt0		        0.01;//#calc "$dtmax/4.0";
+t_final		        600;//#calc "80*$wave_period";
+
+
+// Domain sizes
+xmin                    -144;
+xmax                     144;//160;
+ymin                    -144;
+ymax                     144;//160;
+zmin                    -105;
+zmax                     390;
+//Cell size: 15.36m - 46.08m
+x_mesh                   24;
+y_mesh                   24;
+z_mesh			 80;//120;
+
+
+
+//Subdomains
+Subdomains_solver        30;
+Subdomains_snappy        5;
+

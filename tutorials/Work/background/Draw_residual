@@ -1,0 +1,25 @@
+#!/bin/bash
+
+
+grep -r -n "smoothSolver:  Solving for p_rgh, Initial residual" log.mpirun > log.residual
+grep -r -n "Time = " log.mpirun | grep -v 'ExecutionTime' > log.time
+
+file_path="log.residual"
+
+grep -o 'Final residual = [0-9.e+-]*' "$file_path" | awk '{print $4}' > residuals.txt
+
+
+total_lines=$(wc -l < residuals.txt)
+lines_to_skip=$((total_lines / 10))
+tail -n +"$((lines_to_skip + 1))" residuals.txt > filtered_residuals.txt
+
+gnuplot << EOF
+set terminal pngcairo enhanced font "arial,10" size 800,600
+set output 'residuals_scatter.png'
+set title "Final Residuals Scatter Plot"
+set xlabel "Index"
+set ylabel "Final Residual"
+plot 'filtered_residuals.txt' with points pointtype 7 pointsize 1 title 'Final Residuals'
+EOF
+
+

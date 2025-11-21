@@ -1,0 +1,6 @@
+#!/bin/bash
+
+(cd floater && ./preRun)
+(cd background && ./preRun_background)
+(cd background && ./parRun)
+(cd background && ./solverRun)

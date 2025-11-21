@@ -1,0 +1,14 @@
+#!/bin/bash
+
+awk "/Centre of rotation: / {print $NF}" log.olaDymFlow > Extract_COR.txt
+
+awk "/Linear velocity: / {print $NF}" log.olaDymFlow > Extract_Vel.txt
+
+awk "/Linear acceleration: / {print $NF}" log.olaDymFlow > Extract_acc.txt
+
+awk "/: force / {print $NF}" log.olaDymFlow > Extract_moorforce.txt
+
+awk "/f.forceEff/ {print $NF}" log.olaDymFlow > Extract_buoyancy.txt
+
+awk "/m.momentEff/ {print $NF}" log.olaDymFlow > Extract_moment.txt
+

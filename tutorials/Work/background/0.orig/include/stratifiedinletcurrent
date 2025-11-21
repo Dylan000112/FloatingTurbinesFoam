@@ -1,0 +1,63 @@
+// Logarithmic profile inlet condition
+
+type            waveVelocity;
+waveDictName    waveDict;
+value #codeStream
+{
+	codeInclude
+	#{
+		#include "fvCFD.H"
+	#};
+
+	codeOptions
+	#{
+		-I$(LIB_SRC)/finiteVolume/lnInclude \
+		-I$(LIB_SRC)/meshTools/lnInclude
+	#};
+
+	codeLibs
+	#{
+		-lmeshTools \
+		-lfiniteVolume
+	#};
+
+	code
+	#{
+		const IOdictionary& d = static_cast<const IOdictionary&>
+		(
+			dict.parent().parent()
+		);
+
+		const fvMesh& mesh = refCast<const fvMesh>(d.db());
+		const label id = mesh.boundary().findPatchID("inlet_wave");
+		const fvPatch& patch = mesh.boundary()[id];
+
+		vectorField U(patch.size(), vector(0, 0, 0));
+		
+		scalar U_h = 0.0; 
+
+		forAll(U, i)
+		{
+			const scalar z = patch.Cf()[i][2];
+			if (z>$U_current_Z1) 
+			{	
+				U_h = $U_current1; 
+				U[i] = vector(U_h, 0., 0.);	
+			} 
+			else if (z>$U_current_Z1) 
+			{	
+				U_h = $U_current2; 
+				U[i] = vector(U_h, 0., 0.);	
+			} 			
+			else
+			{	
+				U_h = $U_current3; 
+				U[i] = vector(U_h, 0., 0.);	
+			} 
+		};
+
+		U.writeEntry("",os);
+
+	#};
+
+};
