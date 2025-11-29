@@ -35,7 +35,7 @@ TSR			0.0;// Tip-speed ratio
 //WIND SHEAR - LOG PROFILE
 U_ref		        $Ux; //Hub height vel
 z_ref		        $hub_h; //Hub height
-z_wind_0	        20;//0.01;// Surface roughness length
+z_wind_0	        0.01;// Surface roughness length
 random_fluc		0.01;//	
 //z_ground	        35; //Wind boundary (m)
 
