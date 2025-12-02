@@ -815,10 +815,7 @@ void Foam::waveVelocityFvPatchVectorField::updateCoeffs()
     Info << "Max average wind speed:" << uWind_ <<  endl;
     
     
-    //Time
-    //unsigned int seed = currTime;
-    //std::mt19937 gen(seed);
-    //Rondom
+    //Random
     std::random_device rd;
     std::mt19937 gen(rd());
     
@@ -850,35 +847,21 @@ void Foam::waveVelocityFvPatchVectorField::updateCoeffs()
     Info << "Random logarithmic gradient current generation:" << endl;
         
     const vector zMin = gMin(patch().patch().localPoints());	
-    const scalar z_current_ref = min(measuredLevels) + zMin[2]; //Water level
-    const scalar z_current_0 = z_current0_;//1.1; // Surface roughness length
+    const scalar z_current_ref = min(measuredLevels) + zMin[2]; // Water level
+    const scalar z_current_0 = z_current0_;// Surface roughness length
     const scalar z_current_ground = zMin[2]; //Water depth  
     vectorField U_current = vector(0., 0., 0.) * patchCf;
-    //const scalar Ran_fluc = random_fluctuation_; //0.02;
     
     Info << "Water depth:" << -z_current_ground  <<  endl;
     Info << "Water level:" << z_current_ref  <<  endl;
-    //Info << "Current random fluctuation:" << Ran_fluc*Ran_fluc  <<  endl;
     Info << "Max average current speed:" << uCurrent_ <<  endl;
-    
-    /*
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    
-    std::uniform_real_distribution<> dis(1-Ran_fluc,1+Ran_fluc);
-    double randomNumber1 = dis(gen);*/
-    
+
     forAll(U_current, i)
     {
         const scalar z = patchCf[i];
         
         if (z > z_current_ground) // Above ground height
-        {			
-	    /*std::random_device rd;
-	    std::mt19937 gen(rd());
-            std::uniform_real_distribution<> dis(1-Ran_fluc,1+Ran_fluc);
-            double randomNumber2 = dis(gen);*/
-         		
+        {
 	    //Log profile	
             U_current[i] = uCurrent_ * log((z-z_current_ground)/z_current_0)/log((z_current_ref-z_current_ground)/z_current_0) ;//* randomNumber1 * randomNumber2;
 				
