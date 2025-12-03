@@ -14,7 +14,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-floater05172.stl
+floater.stl
 {
     extractionMethod    extractFromSurface;
 

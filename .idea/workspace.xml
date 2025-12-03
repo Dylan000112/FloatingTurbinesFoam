@@ -6,22 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="9b27d60d-037f-4f32-9fee-51382fc6a7ef" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tutorials/Exreme_case/CofR_extract" beforeDir="false" afterPath="$PROJECT_DIR$/tutorials/Exreme_case/CofR_extract" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tutorials/Exreme_case/CofR_extract_plus" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tutorials/Exreme_case/background/0.orig/U" beforeDir="false" afterPath="$PROJECT_DIR$/tutorials/Exreme_case/background/0.orig/U" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tutorials/Exreme_case/background/0.orig/include/boundaryConditions" beforeDir="false" afterPath="$PROJECT_DIR$/tutorials/Exreme_case/background/0.orig/include/boundaryConditions" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tutorials/Exreme_case/background/constant/dynamicMeshDict1" beforeDir="false" afterPath="$PROJECT_DIR$/tutorials/Exreme_case/background/constant/dynamicMeshDict1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tutorials/Exreme_case/background/constant/turbulenceProperties" beforeDir="false" afterPath="$PROJECT_DIR$/tutorials/Exreme_case/background/constant/turbulenceProperties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tutorials/Exreme_case/background/constant/waveDict" beforeDir="false" afterPath="$PROJECT_DIR$/tutorials/Exreme_case/background/constant/waveDict" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tutorials/Exreme_case/background/constant/waveDictOpposite" beforeDir="false" afterPath="$PROJECT_DIR$/tutorials/Exreme_case/background/constant/waveDictOpposite" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tutorials/Exreme_case/floater/constant/triSurface/floater05172.eMesh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tutorials/Exreme_case/floater/constant/triSurface/floater05172.stl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tutorials/Exreme_case/floater/constant/triSurface/move" beforeDir="false" afterPath="$PROJECT_DIR$/tutorials/Exreme_case/floater/constant/triSurface/move" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tutorials/Exreme_case/floater/constant/triSurface/scale" beforeDir="false" afterPath="$PROJECT_DIR$/tutorials/Exreme_case/floater/constant/triSurface/scale" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tutorials/Exreme_case/floater/system/snappyHexMeshDict" beforeDir="false" afterPath="$PROJECT_DIR$/tutorials/Exreme_case/floater/system/snappyHexMeshDict" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tutorials/Exreme_case/floater/system/surfaceFeatureExtractDict" beforeDir="false" afterPath="$PROJECT_DIR$/tutorials/Exreme_case/floater/system/surfaceFeatureExtractDict" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tutorials/Exreme_case/myVars" beforeDir="false" afterPath="$PROJECT_DIR$/tutorials/Exreme_case/myVars" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tutorials/Exreme_case/reconstructPar" beforeDir="false" afterPath="$PROJECT_DIR$/tutorials/Exreme_case/reconstructPar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tutorials/Normal_case/CofR_extract" beforeDir="false" afterPath="$PROJECT_DIR$/tutorials/Normal_case/CofR_extract" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tutorials/Normal_case/CofR_extract_plus" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tutorials/Normal_case/background/constant/waveDict" beforeDir="false" afterPath="$PROJECT_DIR$/tutorials/Normal_case/background/constant/waveDict" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tutorials/Normal_case/floater/constant/triSurface/floater05172.eMesh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tutorials/Normal_case/floater/constant/triSurface/floater05172.stl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tutorials/Normal_case/floater/system/blockMeshDict" beforeDir="false" afterPath="$PROJECT_DIR$/tutorials/Normal_case/floater/system/blockMeshDict" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tutorials/Normal_case/floater/system/snappyHexMeshDict" beforeDir="false" afterPath="$PROJECT_DIR$/tutorials/Normal_case/floater/system/snappyHexMeshDict" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tutorials/Normal_case/floater/system/surfaceFeatureExtractDict" beforeDir="false" afterPath="$PROJECT_DIR$/tutorials/Normal_case/floater/system/surfaceFeatureExtractDict" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tutorials/Normal_case/myVars" beforeDir="false" afterPath="$PROJECT_DIR$/tutorials/Normal_case/myVars" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +59,7 @@
       <option name="presentableId" value="Default" />
       <updated>1764655375711</updated>
       <workItem from="1764655380755" duration="3181000" />
-      <workItem from="1764763233177" duration="613000" />
+      <workItem from="1764763233177" duration="1804000" />
     </task>
     <servers />
   </component>
