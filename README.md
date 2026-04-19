@@ -1,4 +1,4 @@
-# FloatingTurbinesFoam
+# overWindFoam
 
 ![OpenFOAM Version](https://img.shields.io/badge/OpenFOAM-v2012-blue.svg)
 ![Status](https://img.shields.io/badge/Maintenance-Active-green.svg)
@@ -18,11 +18,11 @@
   <tr>
     <td align="center" width="33%">
       <img src="./doc/Fig/WC.png" alt="Wave-current coupling" width="250"><br>
-      <br><b>Wave-current coupling</b>
+      <br><b>Wind-wave-current coupling</b>
     </td>
     <td align="center" width="33%">
-      <img src="./doc/Fig/Porous.png" alt="Porous media dynamics" width="250"><br>
-      <br><b>Porous media dynamics</b>
+      <img src="./doc/Fig/ALM.png" alt="Porous media dynamics" width="250"><br>
+      <br><b>Actuator line model</b>
     </td>
     <td align="center" width="33%">
       <img src="./doc/Fig/6DoF.png" alt="Rigid body 6DoF" width="250"><br>
@@ -40,7 +40,7 @@
     </td>
     <td align="center" width="33%">
       <img src="./doc/Fig/Overset.png" alt="Dynamic/overset mesh" width="250"><br>
-      <br><b>Dynamic/overset mesh</b>
+      <br><b>Overset mesh</b>
     </td>
   </tr>
 </table>
