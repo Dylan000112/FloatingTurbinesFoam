@@ -1,4 +1,4 @@
-# overWindFoam
+# FloatingTurbinesFoam
 
 ![OpenFOAM Version](https://img.shields.io/badge/OpenFOAM-v2012-blue.svg)
 ![Status](https://img.shields.io/badge/Maintenance-Active-green.svg)
