@@ -12,6 +12,24 @@
 </p>
 
 
+---
+
+## 📋 Table of Contents
+- [Introduction](#introduction)
+- [Features](#features)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Publications](#publications)
+- [Acknowledgements](#acknowledgements)
+
+---
+
+## 📖 Introduction
+**FloatingTurbinesFoam** extends the capabilities of OpenFOAM to handle the complex fluid-structure interaction (FSI) required for floating offshore wind turbines. It specifically targets the dynamic response of FOWTs subjected to simultaneous wind, wave, and current loads, providing a robust framework for marine energy research.
+
+
+
 ## ✨ Features
 
 <table align="center">
@@ -45,23 +63,7 @@
   </tr>
 </table>
 
----
 
-## 📋 Table of Contents
-- [Introduction](#introduction)
-- [Features](#features)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Publications](#publications)
-- [Acknowledgements](#acknowledgements)
-
----
-
-## 📖 Introduction
-**FloatingTurbinesFoam** extends the capabilities of OpenFOAM to handle the complex fluid-structure interaction (FSI) required for floating offshore wind turbines. It specifically targets the dynamic response of FOWTs subjected to simultaneous wind, wave, and current loads, providing a robust framework for marine energy research.
-
-## ✨ Features
 - **Coupled Dynamics**: Simulates 6DOF motion of floating platforms.
 - **Environmental Loads**: Integrated solvers for combined wind, wave, and current interactions.
 - **Mooring Systems**: Coupling with dynamic mooring line solvers.
@@ -82,7 +84,7 @@ This library relies on several third-party packages. Please ensure the following
 | **FloatingTurbine** | - | [GitHub](https://github.com/fronterapp/thesis-FloatingTurbine) | Base libraries from Pere Frontera's thesis. |
 
 > [!WARNING]
-> This repository is currently verified **only for OpenFOAM v2012**. Compatibility with other versions (e.g., v2112, v2206) is not guaranteed and may require source code modification.
+> This repository is currently verified **only for OpenFOAM v2012**.
 
 ---
 
@@ -107,7 +109,7 @@ Navigate to the directory and execute the compilation script. Ensure your OpenFO
 ```bash
 cd $WM_PROJECT_USER_DIR/FloatingTurbinesFoam
 
-# Clean previous builds (optional)
+# Clean previous builds
 ./Allwclean
 
 # Compile library and solvers
