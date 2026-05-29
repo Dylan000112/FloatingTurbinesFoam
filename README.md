@@ -138,8 +138,8 @@ If you use this code or methodology in your research, please consider citing our
 
 * **Dong, Y.**, Tan, W., Luo, K., Li, Y. P., & Yuan, J. (2026). The impact of wave–current interaction on the dynamic response of a floating offshore wind turbine: A CFD investigation. *Applied Ocean Research*, 167, 104928. [![DOI](https://img.shields.io/badge/DOI-10.1016%2Fj.apor.2026.104928-blue.svg)](https://doi.org/10.1016/j.apor.2026.104928)
 
-<details>
-<summary><b>BibTeX Citation</b></summary>
+
+BibTeX Citation:
 
 ```bibtex
 @article{DONG2026104928,
