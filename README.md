@@ -134,10 +134,25 @@ Typical workflow:
 
 ## 📚 Publications
 
-Yiyong Dong, Weikai Tan, Kaiqing Luo, Yuzhu Pearl Li, Jing Yuan,
-The impact of wave–current interaction on the dynamic response of a floating offshore wind turbine: A CFD investigation,
-Applied Ocean Research, Volume 167, 2026, 104928, ISSN 0141-1187, https://doi.org/10.1016/j.apor.2026.104928.
+If you use this code or methodology in your research, please consider citing our work:
 
+* **Dong, Y.**, Tan, W., Luo, K., Li, Y. P., & Yuan, J. (2026). The impact of wave–current interaction on the dynamic response of a floating offshore wind turbine: A CFD investigation. *Applied Ocean Research*, 167, 104928. [![DOI](https://img.shields.io/badge/DOI-10.1016%2Fj.apor.2026.104928-blue.svg)](https://doi.org/10.1016/j.apor.2026.104928)
+
+<details>
+<summary><b>BibTeX Citation</b></summary>
+
+```bibtex
+@article{DONG2026104928,
+  author = {Yiyong Dong and Weikai Tan and Kaiqing Luo and Yuzhu Pearl Li and Jing Yuan},
+  title = {The impact of wave–current interaction on the dynamic response of a floating offshore wind turbine: A CFD investigation},
+  journal = {Applied Ocean Research},
+  volume = {167},
+  pages = {104928},
+  year = {2026},
+  issn = {0141-1187},
+  doi = {10.1016/j.apor.2026.104928}
+}
+```
 
 ## 👏 Acknowledgements
 
